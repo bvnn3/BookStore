@@ -1,0 +1,113 @@
+<div *ngIf="book" class="container mt-5">
+  <div class="row">
+    <div class="col-4">
+      <img src="{{ book.bookImageUrl }}" class="img-fluid custom-image-detail rounded" alt="{{ book.bookTitle }}" />
+    </div>
+    <div class="col-6">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong>Publisher:</strong> {{ book.publisher.publisherName }}
+        </li>
+        <li class="list-group-item">
+          <strong>Title:</strong> {{ book.bookTitle }}
+        </li>
+        <li class="list-group-item">
+          <strong>Genre:</strong> {{ book.bookGenre }}
+        </li>
+        <li class="list-group-item">
+          <strong>Price:</strong> ${{ book.price }}
+        </li>
+        <li class="list-group-item">
+          <strong>Year:</strong> {{ book.bookYear }}
+        </li>
+        <li class="list-group-item">
+          <strong>Writer:</strong> {{ book.writer.writerName }}
+          {{ book.writer.writerSurname }}
+        </li>
+      </ul>
+      <div *ngIf="!isAdmin" class="input-group mt-3">
+        <h5 class="me-2">Chose quantity</h5>
+        <input type="number" class="form-control text-center" [(ngModel)]="quantity" placeholder="Quantity" />
+        <div *ngIf="isLoggedIn" class="input-group-append">
+          <button type="button" class="btn btn-primary ms-5" (click)="addToCart()">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+      <button *ngIf="isAdmin" (click)="editBook()" class="btn btn-primary mt-3">
+        Update
+      </button>
+      <button *ngIf="isAdmin" (click)="deleteBook(book.id)" class="btn btn-danger mt-3 ms-4">
+        Delete
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isEditing" class="mt-5">
+    <h3>Edit Book</h3>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" [(ngModel)]="editForm.bookTitle" name="title" required />
+      </div>
+      <div class="form-group">
+        <label for="imageUrl">Image Url</label>
+        <input type="text" class="form-control" id="imageUrl" [(ngModel)]="editForm.bookImageUrl" name="imageUrl"
+          required />
+      </div>
+      <div class="form-group">
+        <label for="genre">Genre</label>
+        <input type="text" class="form-control" id="genre" [(ngModel)]="editForm.bookGenre" name="genre" required />
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" id="price" [(ngModel)]="editForm.price" name="price" required />
+      </div>
+      <div class="form-group">
+        <label for="year">Year</label>
+        <input type="number" class="form-control" id="year" [(ngModel)]="editForm.bookYear" name="year" required />
+      </div>
+      <div class="form-group">
+        <label for="writer">Writer</label>
+        <select class="form-control" id="writer" [(ngModel)]="editForm.writer" name="writer" required>
+          <option *ngFor="let writer of writers" [ngValue]="writer">
+            {{ writer.writerName }} {{ writer.writerSurname }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="publisher">Publisher</label>
+        <select class="form-control" id="publisher" [(ngModel)]="editForm.publisher" name="publisher" required>
+          <option *ngFor="let publisher of publishers" [ngValue]="publisher">
+            {{ publisher.publisherName }}
+          </option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success mt-3">Save</button>
+    </form>
+  </div>
+
+  <div *ngIf="reviews.length > 0" class="mt-5">
+    <h3>Reviews</h3>
+    <ul class="list-group">
+      <li *ngFor="let review of reviews" class="list-group-item">
+        <p>{{ review.userReview }}</p>
+        <small class="text-muted">- {{ review.user.username }}</small>
+        <button *ngIf="canDeleteReview(review)" (click)="deleteReview(review.id)"
+          class="btn btn-danger btn-sm float-right">
+          Delete
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="isLoggedIn && !hasReviewed" class="mt-5">
+    <h3>Add Review</h3>
+    <form (ngSubmit)="addReview()">
+      <div class="form-group">
+        <label for="userReview">Review</label>
+        <textarea class="form-control" id="userReview" [(ngModel)]="newReview.userReview" name="userReview"
+          required></textarea>
+      </div>
+      <button type="submit" class="btn btn-success mt-3">Submit</button>
+    </form>
+  </div>
+</div>

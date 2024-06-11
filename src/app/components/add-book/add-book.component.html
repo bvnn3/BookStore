@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>Add New Book</h2>
+  <form [formGroup]="addBookForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="bookTitle">Title</label>
+      <input id="bookTitle" formControlName="bookTitle" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label for="bookImageUrl">Image URL</label>
+      <input id="bookImageUrl" formControlName="bookImageUrl" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label for="bookGenre">Genre</label>
+      <input id="bookGenre" formControlName="bookGenre" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input id="price" formControlName="price" class="form-control" type="number">
+    </div>
+    <div class="form-group">
+      <label for="bookYear">Year</label>
+      <input id="bookYear" formControlName="bookYear" class="form-control" type="number">
+    </div>
+    <div class="form-group">
+      <label for="writer">Writer</label>
+      <select id="writer" formControlName="writer" class="form-control">
+        <option *ngFor="let writer of writers" [value]="writer.id">{{ writer.writerName }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="publisher">Publisher</label>
+      <select id="publisher" formControlName="publisher" class="form-control">
+        <option *ngFor="let publisher of publishers" [value]="publisher.id">{{ publisher.publisherName }}</option>
+      </select>
+    </div>
+    <button class="btn btn-primary mt-2" type="submit">Add Book</button>
+  </form>
+</div>

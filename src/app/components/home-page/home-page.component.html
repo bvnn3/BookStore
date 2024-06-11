@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <div class="row">
+      <div *ngFor="let book of books" class="col-md-4">
+        <div class="card mb-4">
+          <img src="{{ book.bookImageUrl }}" class="card-img-top custom-image-card" alt="{{ book.bookTitle }}">
+          <div class="card-body">
+            <h4 class="card-title text-center">{{ book.bookTitle }}</h4>
+            <hr>
+            <h6 class="card-text"><strong>Genre </strong> {{ book.bookGenre }}</h6>
+            <hr>
+            <h6 class="card-text"><strong>From writer </strong> {{ book.writer.writerName }} {{ book.writer.writerSurname }}</h6>
+            <hr>
+            <h6 class="card-text"><strong>Price </strong> ${{ book.price }}</h6>
+            <div *ngIf="isLoggedIn">
+              <hr>
+              <a [routerLink]="['/book', book.id]" class="btn btn-primary">More details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

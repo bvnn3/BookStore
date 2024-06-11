@@ -1,0 +1,19 @@
+<div class="container">
+    <h2>Add New Writer</h2>
+    <form [formGroup]="addWriterForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="writerName">Writer name</label>
+        <input id="writerName" formControlName="writerName" class="form-control" type="text">
+      </div>
+      <div class="form-group">
+        <label for="writerSurname">Writer surname</label>
+        <input id="writerSurname" formControlName="writerSurname" class="form-control" type="text">
+      </div>
+      <div class="form-group">
+        <label for="writerState">Writer state</label>
+        <input id="writerState" formControlName="writerState" class="form-control" type="text">
+      </div>
+      <button class="btn btn-primary mt-2" type="submit">Add Writer</button>
+    </form>
+  </div>
+  
